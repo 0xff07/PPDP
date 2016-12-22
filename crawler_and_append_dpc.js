@@ -53,7 +53,9 @@ function img_section_html(title, src){
 
 
 const pfx = "https://www.dcard.tw/_api/forums/sex/posts?popular=false";
-function scroll(url){
+function scroll(url, depth){
+	if(!depth)
+		return;
 	var next = "";
 	cat(url, function(content){
 		res = JSON.parse(content)
@@ -67,9 +69,9 @@ function scroll(url){
 			}
 		}
 		console.log(next);
-		scroll(next);
+		scroll(next, depth - 1);
 	})
 }
 
 /* main */
-scroll(pfx);
+scroll(pfx, 20);
